@@ -224,5 +224,3 @@ Longer term, the system could evolve into a privacy-conscious real-time monitori
 See [`docs/SHORT_WRITEUP.md`](docs/SHORT_WRITEUP.md) for the concise write-up covering the operational definition, signal selection, evaluation, failure modes, next steps, and long-term vision.
 
 See [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) for additional methodology, results, and limitations.
-
-

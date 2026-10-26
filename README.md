@@ -1,100 +1,158 @@
 # Video-Based Sleep Detection
 
-An experimental computer vision prototype that estimates sleep-like
-behavior from video and reports per-person states and time intervals.
-It uses MediaPipe Pose Landmarker, Face Landmarker, eye aspect ratio
-(EAR), facial head orientation, and temporal smoothing.
+An experimental computer vision prototype that estimates sleep-like behavior from video, tracks up to two people, and reports per-person states and estimated sleep intervals.
 
-The system supports the states `AWAKE`, `SLEEPING`, and `UNCERTAIN`,
-with experimental support for tracking up to two people.
+The system uses MediaPipe Pose Landmarker and Face Landmarker, eye aspect ratio (EAR), facial head orientation, and temporal smoothing. It supports three states: `AWAKE`, `SLEEPING`, and `UNCERTAIN`.
 
 ## Features
 
-- Video sampling at configurable intervals.
-- Pose detection for up to two people.
+- Pose detection and experimental tracking for up to two people.
 - Pose-guided face detection using enlarged head crops.
-- Eye aspect ratio and head-orientation features.
+- Eye aspect ratio and head-orientation feature extraction.
 - Temporal confirmation of sustained sleep-like behavior.
-- Per-person CSV timelines and JSON sleep intervals.
-- JSON run summaries and evaluation metrics.
-- Annotated MP4 output for visual inspection.
+- Per-person timestamped CSV timelines.
+- Sleep-interval JSON files and run-summary JSON files.
+- Annotated MP4 generation for visual inspection.
+- Evaluation against manually defined time intervals.
 
 ## Tech Stack
 
-Python 3.11, OpenCV, MediaPipe Tasks, NumPy, CSV, and JSON.
+- Python 3.11
+- OpenCV
+- MediaPipe Tasks
+- NumPy
+- CSV and JSON for predictions and evaluation artifacts
 
-## Setup
+## Quickstart
 
-Create and activate a virtual environment:
+### 1. Requirements
 
-    python3.11 -m venv .venv
-    source .venv/bin/activate
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
+Use Python 3.11 and ensure the included MediaPipe model assets exist:
 
-The following local model assets are required:
+```text
+models/
+├── pose_landmarker_lite.task
+└── face_landmarker.task
+```
 
-    models/pose_landmarker_lite.task
-    models/face_landmarker.task
+### 2. Install dependencies
 
-Ensure the model files are available at these paths before running
-the scripts. Original input videos are not included in the repository.
+Create a virtual environment and install the pinned runtime dependencies:
 
-## Run Sleep Detection
+```bash
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-runtime.txt
+```
 
-Analyze a single-person video:
+### 3. Run the demonstration
 
-    python scripts/run_multi_person_sleep.py \
-      --video data/raw/sleep_01.mp4 \
-      --names "Person A"
+Run the complete demonstration with one command:
 
-Analyze a video containing two people:
+```bash
+./scripts/run_demo.sh
+```
 
-    python scripts/run_multi_person_sleep.py \
-      --video /path/to/two_people.mp4 \
-      --names "Person A,Person B"
+The demo uses the included synthetic sample video:
 
-By default, the results are written to `outputs/multi_person/`.
+`data/demo/two_people_synthetic.mp4`
 
-Useful options include `--output-dir`, `--sample-step`,
-`--closed-threshold`, `--open-threshold`, and `--min-duration`.
-Use `python scripts/run_multi_person_sleep.py --help` for all options.
+It runs sleep-like state detection and renders an annotated video. The generated timelines, intervals, summaries, and annotated MP4 are saved under `outputs/multi_person/`.
+
+## Analyze Another Video
+
+To analyze a video available on your machine, run:
+
+```bash
+python scripts/run_multi_person_sleep.py \
+  --video /path/to/input_video.mp4 \
+  --names "Person A,Person B"
+```
+
+Replace `/path/to/input_video.mp4` with the actual path to your video.
+
+The `--names` argument assigns labels to tracked people. The current tracker uses initial left-to-right assignment and pose-center matching, so identity switches may occur if people cross, overlap, or leave and re-enter the scene.
+
+Use the following command to view all available options:
+
+```bash
+python scripts/run_multi_person_sleep.py --help
+```
+
+## Operational Definition of Sleeping
+
+The system estimates a **sleep-like visual state** rather than determining physiological sleep.
+
+Video is sampled at one-second intervals. For each detected person, the pipeline extracts facial landmarks and calculates eye aspect ratio (EAR).
+
+The current heuristic uses the following conditions:
+
+- **AWAKE:** EAR is at least 0.16.
+- **Sleep candidate:** EAR is at most 0.12 and the estimated head orientation falls within the configured ranges.
+- **SLEEPING:** At least two consecutive sleep-candidate samples are observed.
+- **UNCERTAIN:** The evidence is insufficient or does not satisfy the required conditions.
+
+The configured head-orientation ranges are 10–23 degrees for rotation X and 1–10 degrees for rotation Z.
+
+These thresholds were developed using the available recordings. They are experimental heuristics, not universal definitions of sleep.
+
+## Pipeline
+
+1. Sample frames from the input video.
+2. Detect body poses and associate detections with person tracks.
+3. Use pose landmarks to locate and enlarge each person's head crop.
+4. Detect facial landmarks and extract eye and head-orientation features.
+5. Classify samples as `AWAKE`, `SLEEPING`, or `UNCERTAIN`.
+6. Confirm sustained sleep candidates and calculate intervals.
+7. Save structured results and optionally render an annotated video.
 
 ## Output Files
 
-For an input video named `sleep_01.mp4`, the system generates:
+For an input video named `sleep_01.mp4`, the pipeline produces:
 
-- `sleep_01_timeline.csv` — sampled states, person labels, track IDs,
-  detection flags, EAR, head orientation, and final decisions.
-- `sleep_01_intervals.json` — estimated sleep-like intervals, including
-  person name, start time, end time, and duration.
-- `sleep_01_summary.json` — video metadata, detection counts, state
-  counts, and detected intervals.
+| File | Description |
+|---|---|
+| `sleep_01_timeline.csv` | Per-person states, timestamps, track IDs, detection flags, EAR, head orientation, and classification evidence |
+| `sleep_01_intervals.json` | Estimated sleep-like intervals with person labels, start and end times, and durations |
+| `sleep_01_summary.json` | Video metadata, detection counts, per-person state counts, and detected intervals |
+
+The files are written to `outputs/multi_person/` by default.
 
 ## Render an Annotated Video
 
 After generating a timeline, run:
 
-    python scripts/render_multi_person_video.py \
-      --video data/raw/sleep_01.mp4
+```bash
+python scripts/render_multi_person_video.py \
+  --video data/demo/two_people_synthetic.mp4
+```
 
-The rendered video is saved in `outputs/multi_person/` by default.
-It displays person boxes, labels, and predicted states. Predictions
-are sampled at one-second intervals and held between samples.
+The renderer saves an annotated MP4 under `outputs/multi_person/`, showing person boxes, names, and predicted states.
+
+Predictions are sampled at one-second intervals and held between samples. The video is a visualization of the existing predictions, not an independent classification at every frame.
 
 ## Evaluation
 
-Ground-truth intervals are stored in:
+The manually specified reference intervals are stored in:
 
-    evaluation/annotations/intervals.csv
+`evaluation/annotations/intervals.csv`
 
-After generating prediction timelines for the annotated videos, run:
+The evaluation script compares generated timelines with those annotations:
 
-    python scripts/evaluate_multi_person.py
+```bash
+python scripts/evaluate_multi_person.py
+```
 
-The metrics are written to `evaluation/multi_person_metrics.json`.
+The resulting metrics are written to:
+
+`evaluation/multi_person_metrics.json`
+
+To reproduce the full evaluation, generate timelines for all annotated source videos first. Those original recordings are not included in this repository; the included synthetic demo is intended for a quick smoke test.
 
 ### Preliminary Development-Set Results
+
+The current annotated development set contains 163 sampled observations across six clips, including only one staged-sleep recording.
 
 | Metric | Result |
 |---|---:|
@@ -109,89 +167,62 @@ The metrics are written to `evaluation/multi_person_metrics.json`.
 | Accuracy | 0.994 |
 | Decision coverage | 52.1% |
 
-These metrics are from 163 sampled observations, including only one
-staged-sleep recording. In the overall confusion matrix, `UNCERTAIN`
-samples are counted as not predicted sleeping. Decision coverage is
-the proportion classified as either `AWAKE` or `SLEEPING`.
+In the overall confusion matrix, `UNCERTAIN` samples are counted as not predicted sleeping. Decision coverage is the fraction of observations classified as either `AWAKE` or `SLEEPING`.
 
-The perfect decided-only metrics exclude uncertain observations and
-must be interpreted together with the 52.1% overall coverage.
+The perfect decided-only metrics exclude uncertain observations and must be interpreted alongside the 52.1% overall coverage.
+
+These are preliminary development-set results, not independent test results. Thresholds were developed using the same recordings used for evaluation.
 
 ## Two-Person Smoke Test
 
-A synthetic side-by-side video assembled from separate awake and
-staged-sleep clips produced two pose and face detections at all
-21 sampled timestamps. The pipeline reported a sleep-like interval
-for Person B of approximately 5.0–20.3 seconds.
+A synthetic side-by-side video was created from separate awake and staged-sleep recordings.
 
-This is a pipeline smoke test, not validation on genuine footage
-containing two people together.
+At all 21 sampled timestamps, the pipeline detected two poses and two faces. It reported a sleep-like interval for Person B of approximately 5.0–20.3 seconds and did not produce a sleep interval for Person A.
 
-## Limitations
+This test demonstrates a basic multi-person processing path. It is **not independent validation on genuine footage containing two people together**.
 
-- Only one positive staged-sleep recording was evaluated.
-- Thresholds were developed using the same clips used for evaluation.
-- Some awake recordings have low decision coverage.
-- Eye closure and head posture are indirect indicators, not proof of sleep.
+## Limitations and Future Work
+
+- The evaluation contains only one positive staged-sleep recording.
+- Several awake recordings have low decision coverage, particularly the looking-down example.
+- Eye closure and head posture are indirect visual cues and cannot establish physiological sleep.
 - Sleep onset is not localized perfectly.
-- Tracking may fail when people cross, overlap, or leave the frame.
-- The synthetic two-person test does not establish real-world accuracy.
+- Identity tracking may fail during crossings, occlusions, or re-entry.
+- The synthetic two-person demonstration does not establish real-world accuracy.
 
-The metrics are preliminary development-set results and do not
-establish generalization to unseen people or environments.
+With more time, the next priorities would be to collect a larger dataset with multiple subjects, lighting conditions, poses, and genuine two-person videos; verify interval annotations; evaluate on independent recordings; improve tracking and temporal classification; and measure both interval-level timing error and false-positive rates.
+
+Longer term, the system could evolve into a privacy-conscious real-time monitoring tool with robust multi-person tracking, confidence-aware alerts, a dashboard for reviewing timelines, and exportable reports. On-device processing could reduce the need to transmit video. Optional contextual or wearable signals could help validate visual estimates. Any such system would require rigorous independent validation before being used for consequential decisions.
 
 ## Project Structure
 
-    docs/                   Project report
-    evaluation/             Annotations and evaluation results
-    models/                 MediaPipe task model assets
-    outputs/multi_person/   Generated timelines and results
-    scripts/                Detection, evaluation, and rendering scripts
-    data/raw/               Local input videos (not committed)
-    requirements.txt        Python dependencies
-
-## Reproducible Demo Quickstart
-
-
-
-Requirements: Python 3.11 and the MediaPipe model assets in `models/`.
-
-
-
-Create the environment and install the pinned runtime dependencies:
-
-
-
-```bash
-
-python3.11 -m venv .venv
-
-source .venv/bin/activate
-
-python -m pip install --upgrade pip
-
-python -m pip install -r requirements-runtime.txt
-
-./scripts/run_demo.sh
-
+```text
+.
+├── data/
+│   └── demo/                  # Included synthetic demonstration video
+├── docs/
+│   ├── PROJECT_REPORT.md      # Detailed project report
+│   └── SHORT_WRITEUP.md       # Concise assignment write-up
+├── evaluation/
+│   ├── annotations/           # Reference intervals
+│   └── multi_person_metrics.json
+├── models/                    # MediaPipe task model assets
+├── outputs/
+│   └── multi_person/          # Generated timelines and results
+├── scripts/
+│   ├── run_multi_person_sleep.py
+│   ├── evaluate_multi_person.py
+│   ├── render_multi_person_video.py
+│   └── run_demo.sh
+├── requirements-runtime.txt   # Pinned runtime dependencies
+├── requirements.txt          # Full environment snapshot
+└── README.md
 ```
 
+## Additional Documentation
+
+See [`docs/SHORT_WRITEUP.md`](docs/SHORT_WRITEUP.md) for the concise write-up covering the operational definition, signal selection, evaluation, failure modes, next steps, and long-term vision.
+
+See [`docs/PROJECT_REPORT.md`](docs/PROJECT_REPORT.md) for additional methodology, results, and limitations.
 
 
-The demo uses the included synthetic video at `data/demo/two_people_synthetic.mp4` and generates CSV timelines, JSON intervals, summaries, and an annotated MP4 under `outputs/multi_person/`.
-
-
-
-For another local video, run:
-
-
-
-```bash
-
-python scripts/run_multi_person_sleep.py --video /path/to/input_video.mp4 --names "Person A,Person B"
-
-```
-
-
-
-Replace `/path/to/input_video.mp4` with the actual path to your video.

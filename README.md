@@ -149,3 +149,49 @@ establish generalization to unseen people or environments.
     scripts/                Detection, evaluation, and rendering scripts
     data/raw/               Local input videos (not committed)
     requirements.txt        Python dependencies
+
+## Reproducible Demo Quickstart
+
+
+
+Requirements: Python 3.11 and the MediaPipe model assets in `models/`.
+
+
+
+Create the environment and install the pinned runtime dependencies:
+
+
+
+```bash
+
+python3.11 -m venv .venv
+
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+
+python -m pip install -r requirements-runtime.txt
+
+./scripts/run_demo.sh
+
+```
+
+
+
+The demo uses the included synthetic video at `data/demo/two_people_synthetic.mp4` and generates CSV timelines, JSON intervals, summaries, and an annotated MP4 under `outputs/multi_person/`.
+
+
+
+For another local video, run:
+
+
+
+```bash
+
+python scripts/run_multi_person_sleep.py --video /path/to/input_video.mp4 --names "Person A,Person B"
+
+```
+
+
+
+Replace `/path/to/input_video.mp4` with the actual path to your video.

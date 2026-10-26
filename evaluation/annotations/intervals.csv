@@ -1,0 +1,8 @@
+video,start_seconds,end_seconds,reference_state,notes
+awake_01,0,20.34,AWAKE,Original awake recording
+awake_02,0,21.35,AWAKE,Angled-view awake recording
+awake_03,0,21.78,AWAKE,Awake frontal recording
+awake_eyes_closed_01,0,34.90,AWAKE,Awake negative example with deliberate eye closure
+awake_looking_down_01,0,40.95,AWAKE,Awake negative example with lowered head
+sleep_01,0,1.50,AWAKE,Initial segment before simulated sleep
+sleep_01,1.50,21.18,SLEEPING,Staged simulated-sleep segment; verify onset in video

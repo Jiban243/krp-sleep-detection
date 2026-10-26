@@ -1,0 +1,30 @@
+{
+  "video": "data/raw/sleep_01.mp4",
+  "duration_seconds": 21.18,
+  "sample_step_seconds": 1,
+  "sampled_frames": 22,
+  "pose_detections_total": 22,
+  "face_detections_total": 22,
+  "people": {
+    "Person A": {
+      "track_id": 0,
+      "pose_detected_seconds": 22,
+      "face_detected_seconds": 22,
+      "state_counts": {
+        "AWAKE": 2,
+        "UNCERTAIN": 1,
+        "SLEEPING": 19
+      }
+    }
+  },
+  "sleep_intervals": [
+    {
+      "person": "Person A",
+      "track_id": 0,
+      "start_seconds": 3.0,
+      "end_seconds": 21.18,
+      "duration_seconds": 18.18
+    }
+  ],
+  "method_note": "Experimental EAR and head-orientation heuristic. Requires validation on independent real-world videos."
+}

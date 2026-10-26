@@ -1,0 +1,39 @@
+{
+  "video": "data/raw/two_people_synthetic.mp4",
+  "duration_seconds": 20.3,
+  "sample_step_seconds": 1,
+  "sampled_frames": 21,
+  "pose_detections_total": 42,
+  "face_detections_total": 42,
+  "people": {
+    "Person A": {
+      "track_id": 0,
+      "pose_detected_seconds": 21,
+      "face_detected_seconds": 21,
+      "state_counts": {
+        "UNCERTAIN": 17,
+        "AWAKE": 4
+      }
+    },
+    "Person B": {
+      "track_id": 1,
+      "pose_detected_seconds": 21,
+      "face_detected_seconds": 21,
+      "state_counts": {
+        "UNCERTAIN": 4,
+        "AWAKE": 1,
+        "SLEEPING": 16
+      }
+    }
+  },
+  "sleep_intervals": [
+    {
+      "person": "Person B",
+      "track_id": 1,
+      "start_seconds": 5.0,
+      "end_seconds": 20.3,
+      "duration_seconds": 15.3
+    }
+  ],
+  "method_note": "Experimental EAR and head-orientation heuristic. Requires validation on independent real-world videos."
+}

@@ -1,0 +1,216 @@
+{
+  "predictions_directory": "/Users/jibankrishnapatra/Downloads/krp-sleep-detection/outputs",
+  "annotations": "/Users/jibankrishnapatra/Downloads/krp-sleep-detection/evaluation/annotations/intervals.csv",
+  "methodology": "One-second timeline predictions are matched to the reference state at each bin midpoint. Conservative metrics treat UNCERTAIN as not predicting sleep. Decided-only metrics exclude UNCERTAIN predictions and must always be read alongside coverage.",
+  "overall": {
+    "annotated_seconds": 163,
+    "uncertain_seconds": 8,
+    "coverage": 0.950920245398773,
+    "conservative": {
+      "seconds": 163,
+      "tp": 20,
+      "fp": 49,
+      "fn": 1,
+      "tn": 93,
+      "precision": 0.2899,
+      "recall": 0.9524,
+      "f1": 0.4444,
+      "specificity": 0.6549,
+      "accuracy": 0.6933
+    },
+    "decided_only": {
+      "seconds": 155,
+      "tp": 20,
+      "fp": 49,
+      "fn": 0,
+      "tn": 86,
+      "precision": 0.2899,
+      "recall": 1.0,
+      "f1": 0.4494,
+      "specificity": 0.637,
+      "accuracy": 0.6839
+    }
+  },
+  "per_video": {
+    "awake_01": {
+      "annotated_seconds": 21,
+      "decided_seconds": 19,
+      "coverage": 0.9047619047619048,
+      "uncertain_seconds": 2,
+      "conservative": {
+        "seconds": 21,
+        "tp": 0,
+        "fp": 5,
+        "fn": 0,
+        "tn": 16,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.7619,
+        "accuracy": 0.7619
+      },
+      "decided_only": {
+        "seconds": 19,
+        "tp": 0,
+        "fp": 5,
+        "fn": 0,
+        "tn": 14,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.7368,
+        "accuracy": 0.7368
+      }
+    },
+    "awake_02": {
+      "annotated_seconds": 22,
+      "decided_seconds": 22,
+      "coverage": 1.0,
+      "uncertain_seconds": 0,
+      "conservative": {
+        "seconds": 22,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 22,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "specificity": 1.0,
+        "accuracy": 1.0
+      },
+      "decided_only": {
+        "seconds": 22,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 22,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "specificity": 1.0,
+        "accuracy": 1.0
+      }
+    },
+    "awake_03": {
+      "annotated_seconds": 22,
+      "decided_seconds": 22,
+      "coverage": 1.0,
+      "uncertain_seconds": 0,
+      "conservative": {
+        "seconds": 22,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 22,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "specificity": 1.0,
+        "accuracy": 1.0
+      },
+      "decided_only": {
+        "seconds": 22,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 22,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "specificity": 1.0,
+        "accuracy": 1.0
+      }
+    },
+    "awake_eyes_closed_01": {
+      "annotated_seconds": 35,
+      "decided_seconds": 30,
+      "coverage": 0.8571428571428571,
+      "uncertain_seconds": 5,
+      "conservative": {
+        "seconds": 35,
+        "tp": 0,
+        "fp": 12,
+        "fn": 0,
+        "tn": 23,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.6571,
+        "accuracy": 0.6571
+      },
+      "decided_only": {
+        "seconds": 30,
+        "tp": 0,
+        "fp": 12,
+        "fn": 0,
+        "tn": 18,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.6,
+        "accuracy": 0.6
+      }
+    },
+    "awake_looking_down_01": {
+      "annotated_seconds": 41,
+      "decided_seconds": 41,
+      "coverage": 1.0,
+      "uncertain_seconds": 0,
+      "conservative": {
+        "seconds": 41,
+        "tp": 0,
+        "fp": 32,
+        "fn": 0,
+        "tn": 9,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.2195,
+        "accuracy": 0.2195
+      },
+      "decided_only": {
+        "seconds": 41,
+        "tp": 0,
+        "fp": 32,
+        "fn": 0,
+        "tn": 9,
+        "precision": 0.0,
+        "recall": null,
+        "f1": null,
+        "specificity": 0.2195,
+        "accuracy": 0.2195
+      }
+    },
+    "sleep_01": {
+      "annotated_seconds": 22,
+      "decided_seconds": 21,
+      "coverage": 0.9545454545454546,
+      "uncertain_seconds": 1,
+      "conservative": {
+        "seconds": 22,
+        "tp": 20,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1,
+        "precision": 1.0,
+        "recall": 0.9524,
+        "f1": 0.9756,
+        "specificity": 1.0,
+        "accuracy": 0.9545
+      },
+      "decided_only": {
+        "seconds": 21,
+        "tp": 20,
+        "fp": 0,
+        "fn": 0,
+        "tn": 1,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "specificity": 1.0,
+        "accuracy": 1.0
+      }
+    }
+  }
+}

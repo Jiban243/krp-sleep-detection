@@ -1,0 +1,9 @@
+[
+  {
+    "person": "Person B",
+    "track_id": 1,
+    "start_seconds": 5.0,
+    "end_seconds": 20.3,
+    "duration_seconds": 15.3
+  }
+]

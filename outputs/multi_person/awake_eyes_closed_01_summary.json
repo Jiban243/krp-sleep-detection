@@ -1,0 +1,21 @@
+{
+  "video": "data/raw/awake_eyes_closed_01.mp4",
+  "duration_seconds": 34.9,
+  "sample_step_seconds": 1,
+  "sampled_frames": 35,
+  "pose_detections_total": 34,
+  "face_detections_total": 25,
+  "people": {
+    "Person A": {
+      "track_id": 0,
+      "pose_detected_seconds": 34,
+      "face_detected_seconds": 25,
+      "state_counts": {
+        "UNCERTAIN": 19,
+        "AWAKE": 16
+      }
+    }
+  },
+  "sleep_intervals": [],
+  "method_note": "Experimental EAR and head-orientation heuristic. Requires validation on independent real-world videos."
+}

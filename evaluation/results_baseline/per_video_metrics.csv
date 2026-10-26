@@ -1,0 +1,7 @@
+video,annotated_seconds,decided_seconds,uncertain_seconds,coverage,conservative_precision,conservative_recall,conservative_f1,conservative_specificity,conservative_accuracy,conservative_tp,conservative_fp,conservative_fn,conservative_tn,decided_only_precision,decided_only_recall,decided_only_f1,decided_only_specificity,decided_only_accuracy,decided_only_tp,decided_only_fp,decided_only_fn,decided_only_tn
+awake_01,21,19,2,0.9047619047619048,0.0,,,0.7619,0.7619,0,5,0,16,0.0,,,0.7368,0.7368,0,5,0,14
+awake_02,22,22,0,1.0,,,,1.0,1.0,0,0,0,22,,,,1.0,1.0,0,0,0,22
+awake_03,22,22,0,1.0,,,,1.0,1.0,0,0,0,22,,,,1.0,1.0,0,0,0,22
+awake_eyes_closed_01,35,30,5,0.8571428571428571,0.0,,,0.6571,0.6571,0,12,0,23,0.0,,,0.6,0.6,0,12,0,18
+awake_looking_down_01,41,41,0,1.0,0.0,,,0.2195,0.2195,0,32,0,9,0.0,,,0.2195,0.2195,0,32,0,9
+sleep_01,22,21,1,0.9545454545454546,1.0,0.9524,0.9756,1.0,0.9545,20,0,1,1,1.0,1.0,1.0,1.0,1.0,20,0,0,1

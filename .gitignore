@@ -1,0 +1,32 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Secrets and environment settings
+.env
+.env.*
+!.env.example
+
+# Raw input videos
+data/raw/*
+!data/raw/.gitkeep
+
+# Generated outputs: retain final multi-person artifacts only
+outputs/*
+!outputs/multi_person/
+outputs/multi_person/*
+!outputs/multi_person/*.csv
+!outputs/multi_person/*.json
+!outputs/multi_person/two_people_synthetic_annotated.mp4
+
+# Submission archives (create these last)
+*.zip

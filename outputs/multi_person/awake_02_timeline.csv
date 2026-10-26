@@ -1,0 +1,23 @@
+timestamp_seconds,person,track_id,pose_detected,face_detected,ear,rotation_x,rotation_z,head_orientation_support,raw_state,state
+0,Person A,0,True,True,0.12029,3.464,3.0,False,UNCERTAIN,UNCERTAIN
+1,Person A,0,True,True,0.19811,0.489,3.929,False,AWAKE,AWAKE
+2,Person A,0,True,True,0.18146,0.138,4.364,False,AWAKE,AWAKE
+3,Person A,0,True,True,0.17602,1.254,4.25,False,AWAKE,AWAKE
+4,Person A,0,True,True,0.17602,-1.041,4.955,False,AWAKE,AWAKE
+5,Person A,0,True,True,0.15429,-0.604,3.112,False,UNCERTAIN,UNCERTAIN
+6,Person A,0,True,True,0.14062,-1.677,3.639,False,UNCERTAIN,UNCERTAIN
+7,Person A,0,True,True,0.14813,-1.797,4.537,False,UNCERTAIN,UNCERTAIN
+8,Person A,0,True,True,0.16222,-0.237,4.616,False,AWAKE,AWAKE
+9,Person A,0,True,True,0.13685,-0.681,7.002,False,UNCERTAIN,UNCERTAIN
+10,Person A,0,True,True,0.12576,3.282,8.705,False,UNCERTAIN,UNCERTAIN
+11,Person A,0,True,True,0.13788,0.996,7.874,False,UNCERTAIN,UNCERTAIN
+12,Person A,0,True,True,0.11765,0.148,7.692,False,UNCERTAIN,UNCERTAIN
+13,Person A,0,True,True,0.15623,-1.202,5.856,False,UNCERTAIN,UNCERTAIN
+14,Person A,0,True,True,0.17044,-2.351,5.441,False,AWAKE,AWAKE
+15,Person A,0,True,True,0.13022,0.135,7.384,False,UNCERTAIN,UNCERTAIN
+16,Person A,0,True,True,0.13512,-0.85,6.439,False,UNCERTAIN,UNCERTAIN
+17,Person A,0,True,True,0.17018,-2.938,5.727,False,AWAKE,AWAKE
+18,Person A,0,True,True,0.12687,3.483,4.644,False,UNCERTAIN,UNCERTAIN
+19,Person A,0,True,True,0.10763,3.386,7.476,False,UNCERTAIN,UNCERTAIN
+20,Person A,0,True,True,0.14058,1.108,7.001,False,UNCERTAIN,UNCERTAIN
+21,Person A,0,True,True,0.13963,1.766,7.07,False,UNCERTAIN,UNCERTAIN

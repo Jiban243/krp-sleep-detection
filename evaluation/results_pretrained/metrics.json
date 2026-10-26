@@ -1,0 +1,47 @@
+{
+  "evaluation_type": "Held-out status not claimed: these are development recordings from the same person used during pipeline development.",
+  "per_video": {
+    "awake_looking_down_01": {
+      "seconds": 41,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 41,
+      "precision": null,
+      "recall": null,
+      "f1": null,
+      "specificity": 1.0,
+      "conservative_accuracy": 1.0,
+      "uncertain_seconds": 41,
+      "coverage": 0.0
+    },
+    "sleep_01": {
+      "seconds": 22,
+      "tp": 0,
+      "fp": 0,
+      "fn": 20,
+      "tn": 2,
+      "precision": null,
+      "recall": 0.0,
+      "f1": null,
+      "specificity": 1.0,
+      "conservative_accuracy": 0.09090909090909091,
+      "uncertain_seconds": 22,
+      "coverage": 0.0
+    }
+  },
+  "overall": {
+    "seconds": 63,
+    "tp": 0,
+    "fp": 0,
+    "fn": 20,
+    "tn": 43,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null,
+    "specificity": 1.0,
+    "conservative_accuracy": 0.6825396825396826,
+    "uncertain_seconds": 63,
+    "coverage": 0.0
+  }
+}

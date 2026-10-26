@@ -1,0 +1,21 @@
+{
+  "video": "data/raw/awake_01.mp4",
+  "duration_seconds": 20.34,
+  "sample_step_seconds": 1,
+  "sampled_frames": 21,
+  "pose_detections_total": 21,
+  "face_detections_total": 21,
+  "people": {
+    "Person A": {
+      "track_id": 0,
+      "pose_detected_seconds": 21,
+      "face_detected_seconds": 21,
+      "state_counts": {
+        "AWAKE": 11,
+        "UNCERTAIN": 10
+      }
+    }
+  },
+  "sleep_intervals": [],
+  "method_note": "Experimental EAR and head-orientation heuristic. Requires validation on independent real-world videos."
+}
